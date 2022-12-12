@@ -45,6 +45,7 @@ message ContentRequest {
     string wikiRef = 2;
     uint64 last = 3;
     string text = 4;
+    uint64 userId = 5;
 }
 
 message Confirm {
@@ -57,6 +58,12 @@ message VersionRequest {
     string wikiRef = 2;
 }
 
+message Version {
+    uint64 number = 1;
+    uint64 userId = 2;
+}
+
+
 message Versions {
-    repeated uint64 list = 1;
+    repeated Version list = 1;
 }
