@@ -63,7 +63,6 @@ message Version {
     uint64 userId = 2;
 }
 
-
 message Versions {
     repeated Version list = 1;
 }
