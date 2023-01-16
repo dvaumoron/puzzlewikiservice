@@ -21,7 +21,7 @@ option java_outer_classname = "PuzzleWikiServiceProto";
 
 package puzzlewikiservice;
 
-// The session service definition.
+// The wiki service definition.
 service Wiki {
     rpc Load (WikiRequest) returns (Content);
     rpc Store (ContentRequest) returns (Confirm);
