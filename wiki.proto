@@ -38,6 +38,7 @@ message WikiRequest {
 message Content {
     uint64 version = 1;
     string text = 2;
+    int64 createdAt = 3;
 }
 
 message ContentRequest {
