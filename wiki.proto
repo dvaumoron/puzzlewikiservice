@@ -24,9 +24,9 @@ package puzzlewikiservice;
 // The wiki service definition.
 service Wiki {
     rpc Load (WikiRequest) returns (Content);
-    rpc Store (ContentRequest) returns (Confirm);
+    rpc Store (ContentRequest) returns (Response);
     rpc ListVersions (VersionRequest) returns (Versions);
-    rpc Delete (WikiRequest) returns (Confirm);
+    rpc Delete (WikiRequest) returns (Response);
 }
 
 message WikiRequest {
@@ -49,7 +49,7 @@ message ContentRequest {
     uint64 userId = 5;
 }
 
-message Confirm {
+message Response {
     bool success = 1;
     uint64 version = 2;
 }

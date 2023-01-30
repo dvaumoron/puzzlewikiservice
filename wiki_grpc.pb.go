@@ -23,9 +23,9 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WikiClient interface {
 	Load(ctx context.Context, in *WikiRequest, opts ...grpc.CallOption) (*Content, error)
-	Store(ctx context.Context, in *ContentRequest, opts ...grpc.CallOption) (*Confirm, error)
+	Store(ctx context.Context, in *ContentRequest, opts ...grpc.CallOption) (*Response, error)
 	ListVersions(ctx context.Context, in *VersionRequest, opts ...grpc.CallOption) (*Versions, error)
-	Delete(ctx context.Context, in *WikiRequest, opts ...grpc.CallOption) (*Confirm, error)
+	Delete(ctx context.Context, in *WikiRequest, opts ...grpc.CallOption) (*Response, error)
 }
 
 type wikiClient struct {
@@ -45,8 +45,8 @@ func (c *wikiClient) Load(ctx context.Context, in *WikiRequest, opts ...grpc.Cal
 	return out, nil
 }
 
-func (c *wikiClient) Store(ctx context.Context, in *ContentRequest, opts ...grpc.CallOption) (*Confirm, error) {
-	out := new(Confirm)
+func (c *wikiClient) Store(ctx context.Context, in *ContentRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
 	err := c.cc.Invoke(ctx, "/puzzlewikiservice.Wiki/Store", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -63,8 +63,8 @@ func (c *wikiClient) ListVersions(ctx context.Context, in *VersionRequest, opts 
 	return out, nil
 }
 
-func (c *wikiClient) Delete(ctx context.Context, in *WikiRequest, opts ...grpc.CallOption) (*Confirm, error) {
-	out := new(Confirm)
+func (c *wikiClient) Delete(ctx context.Context, in *WikiRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
 	err := c.cc.Invoke(ctx, "/puzzlewikiservice.Wiki/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -77,9 +77,9 @@ func (c *wikiClient) Delete(ctx context.Context, in *WikiRequest, opts ...grpc.C
 // for forward compatibility
 type WikiServer interface {
 	Load(context.Context, *WikiRequest) (*Content, error)
-	Store(context.Context, *ContentRequest) (*Confirm, error)
+	Store(context.Context, *ContentRequest) (*Response, error)
 	ListVersions(context.Context, *VersionRequest) (*Versions, error)
-	Delete(context.Context, *WikiRequest) (*Confirm, error)
+	Delete(context.Context, *WikiRequest) (*Response, error)
 	mustEmbedUnimplementedWikiServer()
 }
 
@@ -90,13 +90,13 @@ type UnimplementedWikiServer struct {
 func (UnimplementedWikiServer) Load(context.Context, *WikiRequest) (*Content, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Load not implemented")
 }
-func (UnimplementedWikiServer) Store(context.Context, *ContentRequest) (*Confirm, error) {
+func (UnimplementedWikiServer) Store(context.Context, *ContentRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Store not implemented")
 }
 func (UnimplementedWikiServer) ListVersions(context.Context, *VersionRequest) (*Versions, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListVersions not implemented")
 }
-func (UnimplementedWikiServer) Delete(context.Context, *WikiRequest) (*Confirm, error) {
+func (UnimplementedWikiServer) Delete(context.Context, *WikiRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedWikiServer) mustEmbedUnimplementedWikiServer() {}
