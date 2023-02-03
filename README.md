@@ -1,2 +1,3 @@
 # puzzlewikiservice
-service description to store wiki content
+
+[gRPC](https://grpc.io/) service description to store wiki content.
